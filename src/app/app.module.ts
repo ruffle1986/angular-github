@@ -8,19 +8,22 @@ import { RepoComponent } from './repos/repo.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ReposService } from './repos/repos.service';
+import { IssuesComponent } from './issues/issues.component';
+import { IssuesService } from './issues/issues.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReposComponent,
     RepoComponent,
+    IssuesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ReposService],
+  providers: [ReposService, IssuesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

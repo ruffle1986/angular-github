@@ -1,0 +1,27 @@
+<div class="issues">
+  <div *ngIf="errors" data-test="errors">
+    <div class="error alert alert-danger" *ngFor="let error of errors">{{error.message}}</div>
+  </div>
+
+  <div *ngIf="!errors">
+    <h1>{{repo}}`s issues</h1>
+    <div *ngFor="let issue of issues$ | async" class="issue card">
+      <div class="issue__header card-header">
+        <div class="issue__title card-title">
+          {{issue.title}}
+        </div>
+        <div class="issue__subtitle card-subtitle">
+          <a href="{{issue.html_url}}" target="_blank">
+            {{issue.html_url}}
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        #{{issue.number}} by
+        <a href="{{issue.user.html_url}}" target="_blank">
+          {{issue.user.login}}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
