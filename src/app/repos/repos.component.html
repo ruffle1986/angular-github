@@ -1,0 +1,6 @@
+<div data-test="errors" *ngIf="errors">
+  <div *ngFor="let error of errors">{{error.message}}</div>
+</div>
+
+<input #searchField data-test="searchField" type="text" />
+<button data-test="searchButton" (click)="search(searchField.value)">Search</button>
