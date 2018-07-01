@@ -1,5 +1,5 @@
 <div data-test="errors" *ngIf="errors">
-  <div *ngFor="let error of errors">{{error.message}}</div>
+  <div class="error alert alert-danger" *ngFor="let error of errors">{{error.message}}</div>
 </div>
 
 <input #searchField data-test="searchField" type="text" />
