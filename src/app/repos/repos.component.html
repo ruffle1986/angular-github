@@ -1,14 +1,16 @@
-<div data-test="errors" *ngIf="errors">
-  <div class="error alert alert-danger" *ngFor="let error of errors">{{error.message}}</div>
-</div>
+
 
 <div class="repos-search">
   <input #searchField data-test="searchField" class="form-control search-field" type="text" />
   <button data-test="searchButton" class="btn btn-primary" (click)="search(searchField.value)">Search</button>
 </div>
 
-<div class="repos">
+<div *ngIf="errors" data-test="errors">
+  <div class="error alert alert-danger" *ngFor="let error of errors">{{error.message}}</div>
+</div>
+
+<div *ngIf="!errors" class="repos">
   <div *ngFor="let repo of repos$ | async">
-    <app-repo [repo]="repo"></app-repo>
+    <app-repo [repo]="repo" [user]="user"></app-repo>
   </div>
 </div>

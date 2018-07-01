@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReposService, Repo } from './repos.service';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-repos',
@@ -11,7 +13,7 @@ export class ReposComponent {
 
   errors: Error[];
 
-  repos$: Observable<Repo[]>;
+  repos$: Observable<{} | Repo[]>;
 
   user: string;
 
@@ -19,15 +21,19 @@ export class ReposComponent {
 
   search(user: string) {
 
-    this.errors = [];
+    this.errors = null;
 
     if (!user) {
-      this.errors.push(
-        new Error('Invalid user name.')
-      );
+      this.errors = [new Error('Invalid user name.')];
     } else {
       this.user = user;
-      this.repos$ = this.service.getAll({ user });
+      this.repos$ = this.service.getAll({ user })
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            this.errors = error.error.errors;
+            return [];
+          })
+        );
     }
   }
 
