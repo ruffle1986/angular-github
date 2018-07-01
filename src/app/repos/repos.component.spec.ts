@@ -6,6 +6,7 @@ import { DebugElement } from '@angular/core';
 import { ReposService, Repo } from './repos.service';
 import { defer, Observable } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 function getElement(fixture, id): { debugElement: DebugElement, el: HTMLElement } {
   const debugElement = fixture.debugElement.query(By.css(`[data-test="${id}"]`));
@@ -69,7 +70,10 @@ describe('ReposComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ReposComponent ],
-      imports: [ HttpClientTestingModule ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
       providers: [
         { provide: ReposService, useClass: TestRepoService }
       ]

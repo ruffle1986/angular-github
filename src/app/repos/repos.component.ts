@@ -13,6 +13,8 @@ export class ReposComponent {
 
   repos$: Observable<Repo[]>;
 
+  user: string;
+
   constructor(private service: ReposService) {}
 
   search(user: string) {
@@ -24,6 +26,7 @@ export class ReposComponent {
         new Error('Invalid user name.')
       );
     } else {
+      this.user = user;
       this.repos$ = this.service.getAll({ user });
     }
   }

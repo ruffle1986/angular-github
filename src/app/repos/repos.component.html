@@ -2,11 +2,35 @@
   <div class="error alert alert-danger" *ngFor="let error of errors">{{error.message}}</div>
 </div>
 
-<input #searchField data-test="searchField" type="text" />
-<button data-test="searchButton" (click)="search(searchField.value)">Search</button>
+<div class="repos-search">
+  <input #searchField data-test="searchField" class="form-control search-field" type="text" />
+  <button data-test="searchButton" class="btn btn-primary" (click)="search(searchField.value)">Search</button>
+</div>
 
 <div class="repos">
-  <div data-test="repo" class="repo" *ngFor="let repo of repos$ | async">
-    {{repo.name}}
+  <div data-test="repo" class="repo card" *ngFor="let repo of repos$ | async">
+    <div class="repo__header card-header">
+      <div class="repo__title card-title">
+        {{repo.name}}
+      </div>
+      <div class="repo__subtitle card-subtitle">
+        <a href="{{repo.html_url}}" target="_blank">
+          {{repo.html_url}}
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="repo__details">
+        <li data-test="forkCount"><strong>Forks:</strong> {{ repo.forks_count }}</li>
+        <li data-test="starCount"><strong>Stars:</strong> {{ repo.stargazers_count }}</li>
+        <li data-test="issueCount">
+          <strong>Issues:</strong>
+          <a routerLink="/repos/{{ user }}/{{ repo.name }}/issues">
+            {{ repo.open_issues_count }}
+          </a>
+        </li>
+        <li data-test="watcherCount"><strong>Watchers:</strong> {{ repo.watchers_count }}</li>
+      </ul>
+    </div>
   </div>
 </div>
