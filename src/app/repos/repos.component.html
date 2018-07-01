@@ -4,3 +4,9 @@
 
 <input #searchField data-test="searchField" type="text" />
 <button data-test="searchButton" (click)="search(searchField.value)">Search</button>
+
+<div class="repos">
+  <div data-test="repo" class="repo" *ngFor="let repo of repos$ | async">
+    {{repo.name}}
+  </div>
+</div>

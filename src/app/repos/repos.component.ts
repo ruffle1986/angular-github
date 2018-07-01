@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReposService, Repo } from './repos.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-repos',
@@ -9,17 +11,20 @@ export class ReposComponent {
 
   errors: Error[];
 
-  constructor() {}
+  repos$: Observable<Repo[]>;
 
-  search(userName: string) {
+  constructor(private service: ReposService) {}
+
+  search(user: string) {
 
     this.errors = [];
 
-    if (!userName) {
-      console.log('puss');
+    if (!user) {
       this.errors.push(
         new Error('Invalid user name.')
       );
+    } else {
+      this.repos$ = this.service.getAll({ user });
     }
   }
 
