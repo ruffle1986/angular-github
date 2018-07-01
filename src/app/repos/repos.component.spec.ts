@@ -7,6 +7,8 @@ import { ReposService, Repo } from './repos.service';
 import { defer, Observable } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { RepoComponent } from './repo.component';
+import testRepos from './testing/test-repos';
 
 function getElement(fixture, id): { debugElement: DebugElement, el: HTMLElement } {
   const debugElement = fixture.debugElement.query(By.css(`[data-test="${id}"]`));
@@ -25,37 +27,7 @@ function getElements(fixture, id): DebugElement[] {
 
 class TestRepoService extends ReposService {
 
-  data: Repo[] = [{
-    id: 1,
-    name: 'foo',
-    full_name: 'foo_full',
-    html_url: 'http://foo.com',
-    forks_count: 42,
-    stargazers_count: 43,
-    open_issues_count: 44,
-    watchers_count: 45,
-    owner: {
-      id: 11,
-      login: 'ruffle1986',
-      avatar_url: 'http://avatar.com',
-      html_url: 'http://html.url',
-    }
-  }, {
-    id: 2,
-    name: 'bar',
-    full_name: 'bar_full',
-    html_url: 'http://bar.com',
-    forks_count: 52,
-    stargazers_count: 53,
-    open_issues_count: 54,
-    watchers_count: 55,
-    owner: {
-      id: 11,
-      login: 'ruffle1986',
-      avatar_url: 'http://avatar.com',
-      html_url: 'http://html.url',
-    }
-  }];
+  data: Repo[] = testRepos;
 
   getAll(): Observable<Repo[]> {
     return defer(() => Promise.resolve(this.data));
@@ -69,7 +41,7 @@ describe('ReposComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReposComponent ],
+      declarations: [ ReposComponent, RepoComponent ],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,

@@ -8,29 +8,7 @@
 </div>
 
 <div class="repos">
-  <div data-test="repo" class="repo card" *ngFor="let repo of repos$ | async">
-    <div class="repo__header card-header">
-      <div class="repo__title card-title">
-        {{repo.name}}
-      </div>
-      <div class="repo__subtitle card-subtitle">
-        <a href="{{repo.html_url}}" target="_blank">
-          {{repo.html_url}}
-        </a>
-      </div>
-    </div>
-    <div class="card-body">
-      <ul class="repo__details">
-        <li data-test="forkCount"><strong>Forks:</strong> {{ repo.forks_count }}</li>
-        <li data-test="starCount"><strong>Stars:</strong> {{ repo.stargazers_count }}</li>
-        <li data-test="issueCount">
-          <strong>Issues:</strong>
-          <a routerLink="/repos/{{ user }}/{{ repo.name }}/issues">
-            {{ repo.open_issues_count }}
-          </a>
-        </li>
-        <li data-test="watcherCount"><strong>Watchers:</strong> {{ repo.watchers_count }}</li>
-      </ul>
-    </div>
+  <div *ngFor="let repo of repos$ | async">
+    <app-repo [repo]="repo"></app-repo>
   </div>
 </div>
